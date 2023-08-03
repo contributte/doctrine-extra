@@ -14,7 +14,8 @@
 	</rule>
 
 	<rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.PartialUse">
-		<exclude-pattern>/tests</exclude-pattern>
+		<exclude-pattern>/src/Entity</exclude-pattern>
+		<exclude-pattern>/tests/Fixtures</exclude-pattern>
 	</rule>
 
 	<!-- Excludes -->

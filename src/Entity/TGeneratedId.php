@@ -7,12 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 trait TGeneratedId
 {
 
-	/**
-	 * @ORM\Column(type="integer", nullable=FALSE)
-	 * @ORM\Id
-	 * @ORM\GeneratedValue
-	 */
-	private int $id;
+	#[ORM\Column(type: 'integer', nullable: false)]
+	#[ORM\Id]
+	#[ORM\GeneratedValue]
+	protected int $id;
 
 	public function getId(): int
 	{

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 trait TCreatedAt
 {
 
-	/** @ORM\Column(type="datetime", nullable=FALSE) */
+	#[ORM\Column(type: 'datetime', nullable: false)]
 	protected DateTime $createdAt;
 
 	public function getCreatedAt(): DateTime
@@ -17,9 +17,9 @@ trait TCreatedAt
 	}
 
 	/**
-	 * @ORM\PrePersist
 	 * @internal
 	 */
+	#[ORM\PrePersist]
 	public function setCreatedAt(): void
 	{
 		$this->createdAt = new DateTime();
