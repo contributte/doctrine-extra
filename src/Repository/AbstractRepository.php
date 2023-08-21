@@ -3,11 +3,10 @@
 namespace Nettrine\Extra\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Nettrine\Extra\Entity\AbstractEntity;
 use Nettrine\Extra\Exception\Runtime\EntityNotFoundException;
 
 /**
- * @phpstan-template TEntityClass of AbstractEntity
+ * @phpstan-template TEntityClass of object
  * @phpstan-extends EntityRepository<TEntityClass>
  */
 abstract class AbstractRepository extends EntityRepository
