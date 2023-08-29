@@ -5,6 +5,9 @@ namespace Nettrine\Extra\Query;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
 
+/**
+ * @template T
+ */
 interface Queryable
 {
 

@@ -6,6 +6,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
+/**
+ * @template T
+ * @implements Queryable<T>
+ */
 class AbstractQuery implements Queryable
 {
 

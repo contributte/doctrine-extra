@@ -13,12 +13,22 @@ class QueryManager
 	{
 	}
 
-	public function findOne(AbstractQuery $query): mixed
+	/**
+	 * @template T
+	 * @param Queryable<T> $query
+	 * @return T
+	 */
+	public function findOne(Queryable $query): mixed
 	{
 		return $query->doQuery($this->em)->getSingleResult();
 	}
 
-	public function findAll(AbstractQuery $query): mixed
+	/**
+	 * @template T
+	 * @param Queryable<T> $query
+	 * @return T
+	 */
+	public function findAll(Queryable $query): mixed
 	{
 		return $query->doQuery($this->em)->getResult();
 	}
