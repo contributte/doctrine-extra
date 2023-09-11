@@ -26,7 +26,7 @@ class QueryManager
 	/**
 	 * @template T
 	 * @param Queryable<T> $query
-	 * @return T
+	 * @return array<T>
 	 */
 	public function findAll(Queryable $query): mixed
 	{
