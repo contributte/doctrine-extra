@@ -6,6 +6,9 @@ use Doctrine\ORM\QueryBuilder;
 use Nettrine\Extra\Query\AbstractQuery;
 use Tests\Fixtures\Entity\User;
 
+/**
+ * @extends AbstractQuery<User>
+ */
 class UserQuery extends AbstractQuery
 {
 

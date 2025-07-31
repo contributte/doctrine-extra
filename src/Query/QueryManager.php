@@ -28,9 +28,9 @@ class QueryManager
 	 * @param Queryable<T> $query
 	 * @return array<T>
 	 */
-	public function findAll(Queryable $query): mixed
+	public function findAll(Queryable $query): array
 	{
-		return $query->doQuery($this->em)->getResult();
+		return $query->doQuery($this->em)->getResult(); // @phpstan-ignore-line
 	}
 
 }
