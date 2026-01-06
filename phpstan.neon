@@ -15,5 +15,3 @@ parameters:
 		- src
 		- tests/Fixtures
 		- .docs
-
-	ignoreErrors:
