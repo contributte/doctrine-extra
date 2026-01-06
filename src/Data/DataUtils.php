@@ -38,7 +38,9 @@ final class DataUtils
 			}
 		} else {
 			foreach ($rows as $row) {
-				$return[$row[$key]] = ($value === null ? $row : $row[$value]);
+				/** @var int|string $k */
+				$k = $row[$key];
+				$return[$k] = ($value === null ? $row : $row[$value]);
 			}
 		}
 
