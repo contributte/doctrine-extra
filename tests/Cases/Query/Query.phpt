@@ -21,6 +21,10 @@ Toolkit::test(function (): void {
 	$config->setAutoGenerateProxyClasses(ProxyFactory::AUTOGENERATE_NEVER);
 	$config->setProxyDir(Environment::getTestDir());
 	$config->setProxyNamespace('Doctrine\Tests\Proxies');
+	if (PHP_VERSION_ID >= 80400) {
+		$config->enableNativeLazyObjects(true);
+	}
+
 	$config->setMetadataDriverImpl(new AttributeDriver([
 		Tests::FIXTURES_PATH . '/Entity',
 	]));
