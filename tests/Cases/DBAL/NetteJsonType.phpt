@@ -6,14 +6,14 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use JsonException;
 use Mockery;
-use Nettrine\Extra\DBAL\MJsonType;
+use Nettrine\Extra\DBAL\NetteJsonType;
 use Tester\Assert;
 
 require_once __DIR__ . '/../../bootstrap.php';
 
-$type = new MJsonType();
+$type = new NetteJsonType();
 
-Assert::same(MJsonType::MJSON_TYPE, $type->getName());
+Assert::same(NetteJsonType::NETTE_JSON_TYPE, $type->getName());
 
 $platform = Mockery::mock(AbstractPlatform::class);
 

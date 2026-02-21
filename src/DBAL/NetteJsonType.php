@@ -7,10 +7,10 @@ use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\JsonType;
 use JsonException;
 
-final class MJsonType extends JsonType
+final class NetteJsonType extends JsonType
 {
 
-	public const MJSON_TYPE = 'mjson';
+	public const NETTE_JSON_TYPE = 'mjson';
 
 	public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): ?string
 	{
@@ -36,7 +36,7 @@ final class MJsonType extends JsonType
 
 	public function getName(): string
 	{
-		return self::MJSON_TYPE;
+		return self::NETTE_JSON_TYPE;
 	}
 
 }
