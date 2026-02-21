@@ -2,53 +2,13 @@
 
 namespace Tests\Cases\Repository;
 
-use Doctrine\DBAL\LockMode;
 use Nettrine\Extra\Exception\Runtime\EntityNotFoundException;
-use Nettrine\Extra\Repository\AbstractRepository;
 use Tester\Assert;
+use Tests\Mocks\Repository\RepositoryMock;
 
 require_once __DIR__ . '/../../bootstrap.php';
 
-$repository = new class extends AbstractRepository {
-
-	public ?object $findEntity = null;
-
-	public ?object $findOneByEntity = null;
-
-	/** @var array<string, mixed>|null */
-	public ?array $lastCriteria = null;
-
-	/** @var array<string, mixed>|null */
-	public ?array $lastOrderBy = null;
-
-	public function __construct()
-	{
-		// Intentionally empty for isolated behavior testing.
-	}
-
-	public function find(mixed $id, LockMode|int|null $lockMode = null, ?int $lockVersion = null): ?object
-	{
-		return $this->findEntity;
-	}
-
-	/**
-	 * @param array<string, mixed> $criteria
-	 * @param array<string, string>|null $orderBy
-	 */
-	public function findOneBy(array $criteria, ?array $orderBy = null): ?object
-	{
-		$this->lastCriteria = $criteria;
-		$this->lastOrderBy = $orderBy;
-
-		return $this->findOneByEntity;
-	}
-
-	public function getClassName(): string
-	{
-		return 'App\\Model\\User';
-	}
-
-};
+$repository = new RepositoryMock();
 
 $entity = (object) ['id' => 'user-1'];
 $repository->findEntity = $entity;

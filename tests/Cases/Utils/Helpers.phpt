@@ -3,28 +3,19 @@
 namespace Tests\Cases\Utils;
 
 use Nettrine\Extra\Utils\Helpers;
-use Stringable;
 use Tester\Assert;
+use Tests\Mocks\Utils\ObjectMock;
+use Tests\Mocks\Utils\StringableMock;
 
 require_once __DIR__ . '/../../bootstrap.php';
 
 Assert::same('123', Helpers::value(123));
 Assert::same('1', Helpers::value(true));
 
-$stringable = new class implements Stringable {
-
-	public function __toString(): string
-	{
-		return 'stringable-value';
-	}
-
-};
-
+$stringable = new StringableMock();
 Assert::same('stringable-value', Helpers::value($stringable));
 
-$object = new class {
-
-};
+$object = new ObjectMock();
 
 $objectValue = Helpers::value($object);
 
