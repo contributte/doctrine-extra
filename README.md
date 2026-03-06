@@ -2,7 +2,7 @@
 
 <p align=center>
   <a href="https://github.com/contributte/doctrine-extra/actions"><img src="https://badgen.net/github/checks/contributte/doctrine-extra/master?cache=300"></a>
-  <a href="https://coveralls.io/r/nettrine/dbal"><img src="https://badgen.net/coveralls/c/github/nettrine/dbal?cache=300"></a>
+  <a href="https://codecov.io/gh/contributte/doctrine-extra"><img src="https://badgen.net/codecov/c/github/contributte/doctrine-extra"></a>
   <a href="https://packagist.org/packages/nettrine/extra"><img src="https://badgen.net/packagist/dm/nettrine/extra"></a>
   <a href="https://packagist.org/packages/nettrine/extra"><img src="https://badgen.net/packagist/v/nettrine/extra"></a>
 </p>
