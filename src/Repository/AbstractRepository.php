@@ -17,7 +17,7 @@ abstract class AbstractRepository extends EntityRepository
 	 * @return TEntityClass
 	 * @throws EntityNotFoundException
 	 */
-	public function fetch(int $id, ?int $lockMode = null, ?int $lockVersion = null): object
+	public function fetch(mixed $id, ?int $lockMode = null, ?int $lockVersion = null): object
 	{
 		$entity = $this->find($id, $lockMode, $lockVersion);
 
@@ -46,6 +46,17 @@ abstract class AbstractRepository extends EntityRepository
 	}
 
 	/**
+	 * @param array<string,mixed> $criteria
+	 * @param array<string,string>|null $orderBy
+	 * @return TEntityClass
+	 * @throws EntityNotFoundException
+	 */
+	public function fetchOneBy(array $criteria, ?array $orderBy = null): object
+	{
+		return $this->fetchBy($criteria, $orderBy);
+	}
+
+	/**
 	 * Fetches all records like $key => $value pairs
 	 *
 	 * @param array<string,mixed> $criteria
@@ -63,11 +74,11 @@ abstract class AbstractRepository extends EntityRepository
 			->resetDQLPart('from')
 			->from($this->getEntityName(), 'e', 'e.' . $key);
 
-		foreach ($criteria as $v) {
+		foreach ($criteria as $column => $v) {
 			if (is_array($v)) {
-				$qb->andWhere(sprintf('e.%s IN(:%s)', $key, $key))->setParameter($key, array_values($v));
+				$qb->andWhere(sprintf('e.%s IN(:%s)', $column, $column))->setParameter($column, array_values($v));
 			} else {
-				$qb->andWhere(sprintf('e.%s = :%s', $key, $key))->setParameter($key, $v);
+				$qb->andWhere(sprintf('e.%s = :%s', $column, $column))->setParameter($column, $v);
 			}
 		}
 
