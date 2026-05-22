@@ -103,6 +103,34 @@ class UserRepository extends AbstractRepository
 }
 ```
 
+### Audit logging
+
+`EntityChangeSubscriber` stores entity create/update/delete changes into `Nettrine\Extra\Audit\Changeset` records.
+
+Register services:
+
+```neon
+services:
+	- Nettrine\Extra\Audit\ChangesetFactory('api')
+	- Nettrine\Extra\Audit\EntityChangeSubscriber
+```
+
+Register subscriber into Doctrine event manager (or ORM configuration):
+
+```php
+$eventManager->addEventSubscriber($entityChangeSubscriber);
+```
+
+`ChangesetFactory` supports optional user assignment:
+
+```php
+$changesetFactory->withUserId($userId);
+```
+
+The subscriber ignores unsupported field value types and logs internal errors through `Psr\Log\LoggerInterface`.
+
+`Changeset` entity uses table `AuditChangesets` and stores old/new values as JSON payloads.
+
 ### Utils
 
 We've prepared some utility classes.
