@@ -18,7 +18,7 @@
 Website 🚀 <a href="https://contributte.org">contributte.org</a> | Contact 👨🏻‍💻 <a href="https://f3l1x.io">f3l1x.io</a> | Twitter 🐦 <a href="https://twitter.com/contributte">@contributte</a>
 </p>
 
-Opinionated extra functions to Doctrine ecosystem in [Nette Framework](https://nette.org).
+Opinionated extra helpers for Doctrine in [Nette Framework](https://nette.org).
 
 ## Versions
 
@@ -39,9 +39,9 @@ composer require nettrine/extra
 
 ### Query Objects
 
-Query objects are a good way how to decouple repository classes.
+Query objects help decouple query composition from repository classes.
 
-You need to create child of `AbstractQuery` or implement `IQueryable`.
+Create a query object by extending `AbstractQuery` or implementing `IQueryable`.
 
 ```php
 <?php declare(strict_types = 1);
@@ -84,14 +84,14 @@ class UserQuery extends AbstractQuery
 }
 ```
 
-To execute this query object, you need to register QueryManager (manually in neon file).
+To execute query objects, register `QueryManager` as a service.
 
 ```neon
 services:
     - Nettrine\Extra\Query\QueryManager
 ```
 
-After that, just execute it.
+Then pass query objects to the manager.
 
 ```php
 class UserPresenter extends Presenter
@@ -100,11 +100,11 @@ class UserPresenter extends Presenter
     public function actionDefault(): void
     {
         $user = $this->queryManager->fetchOne(
-            (new UserQuery())->withName('felix')
+            UserQuery::create()->withName('felix')
         );
 
         $users = $this->queryManager->fetchAll(
-            (new UserQuery())->withRole('admin')
+            UserQuery::create()
         );
     }
 
