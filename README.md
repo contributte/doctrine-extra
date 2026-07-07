@@ -18,17 +18,7 @@
 Website 🚀 <a href="https://contributte.org">contributte.org</a> | Contact 👨🏻‍💻 <a href="https://f3l1x.io">f3l1x.io</a> | Twitter 🐦 <a href="https://twitter.com/contributte">@contributte</a>
 </p>
 
-## Usage
-
-To install latest version of `nettrine/extra` use [Composer](https://getcomposer.org).
-
-```
-composer require nettrine/extra
-```
-
-## Documentation
-
-For details on how to use this package, check out our [documentation](.docs).
+Opinionated extra helpers for Doctrine in [Nette Framework](https://nette.org).
 
 ## Versions
 
@@ -36,6 +26,118 @@ For details on how to use this package, check out our [documentation](.docs).
 |--------|---------|----------|--------|---------|
 | dev    | `^0.3`  | `master` | `3.3+` | `>=8.2` |
 | stable | `^0.2`  | `master` | `3.3+` | `>=8.2` |
+
+## Installation
+
+To install latest version of `nettrine/extra` use [Composer](https://getcomposer.org).
+
+```bash
+composer require nettrine/extra
+```
+
+## Usage
+
+### Query Objects
+
+Query objects help decouple query composition from repository classes.
+
+Create a query object by extending `AbstractQuery` or implementing `IQueryable`.
+
+```php
+<?php declare(strict_types = 1);
+
+namespace App\Domain\User;
+
+use Doctrine\ORM\QueryBuilder;
+use Nettrine\Extra\Query\AbstractQuery;
+
+class UserQuery extends AbstractQuery
+{
+
+	private function __construct()
+	{
+		$this->ons[] = static function (QueryBuilder $qb): QueryBuilder {
+			$qb->from(User::class, 'u');
+			$qb->select('u.id');
+
+			return $qb;
+		};
+	}
+
+	public static function create(): self
+	{
+		return new self();
+	}
+
+	public function withName(string $name): self
+	{
+		$this->ons[] = static function (QueryBuilder $qb) use ($name): QueryBuilder {
+			$qb->andWhere('u.name = :name')
+				->setParameter('name', $name);
+
+			return $qb;
+		};
+
+		return $this;
+	}
+
+}
+```
+
+To execute query objects, register `QueryManager` as a service.
+
+```neon
+services:
+    - Nettrine\Extra\Query\QueryManager
+```
+
+Then pass query objects to the manager.
+
+```php
+class UserPresenter extends Presenter
+{
+
+    public function actionDefault(): void
+    {
+        $user = $this->queryManager->fetchOne(
+            UserQuery::create()->withName('felix')
+        );
+
+        $users = $this->queryManager->fetchAll(
+            UserQuery::create()
+        );
+    }
+
+}
+```
+
+### Repository
+
+We've prepared abstract repository class with few fetching methods.
+
+```php
+use Nettrine\Extra\Repository\AbstractRepository;
+
+class UserRepository extends AbstractRepository
+{
+}
+```
+
+### Utils
+
+We've prepared some utility classes.
+
+- DataUtils
+- OracleUtils
+- QueryUtils
+
+## Examples
+
+We've made a few skeletons with preconfigured Nettrine and Contributte packages.
+
+- https://github.com/contributte/doctrine-skeleton
+- https://github.com/contributte/webapp-skeleton
+- https://github.com/contributte/apitte-skeleton
 
 ## Development
 
